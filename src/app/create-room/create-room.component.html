@@ -1,0 +1,56 @@
+@if(loadMainBoard) {
+<div class="main-container">
+  <div class="container">
+    @if (isGameOver) {
+    <h1>{{winText}}</h1>
+    <button class="game-button orange" (click)="onNavigateHome()">Home</button>
+    <!-- disabledReplayButton || userId !== currentUser -->
+    <button class="game-button green" (click)="resetGame()">Find Interesting, Play
+      Again!!!</button>
+    }
+    @if (!isGameOver) {
+    <h1>{{ (userId === currentUser)? "Your Turn" : "Other Player turn" }} : {{currentPlayer}}</h1>
+    }
+    <div id="board">
+      <div class="cell" *ngFor="let item of gameBoard; let i = index"
+        [ngClass]="{'disabled': isGameOver || (userId !== currentUser)}"
+        (click)="(!isGameOver && userId === currentUser) ? onCellClick(i) : ''">
+        {{ item.pos }}
+      </div>
+    </div>
+  </div>
+</div>
+} @else {
+<div class="main-container">
+  <div class="game-invite">
+    <h1>PLAY WITH A FRIEND</h1>
+    <p>Unlimited friendly matches without rewards - just pure fun!</p>
+    <h3>Create a room and share it with a friend!</h3>
+    <button class="game-button" (click)="onCreateRoom()" [disabled]="isJoiningRoom">
+      Create a Room
+    </button>
+    <button class="game-button orange" (click)="onJoinRoom()" [disabled]="isCreatingRoom">
+      Join a Room
+    </button>
+    @if (isCreatingRoom) {
+    <fieldset class="number-code" *ngIf="isCreatingRoom">
+      <input class="code-input" [(ngModel)]="roomId" name="roomId" [disabled]="true" maxlength="8" />
+      <fa-icon [icon]="faCopy" class="copy-icon" (click)="onCopyRoomCode()"></fa-icon>
+    </fieldset>
+    <h3 *ngIf="roomId">
+      Waiting for your friend to join! Share this code with him/her!...
+    </h3>
+    } @else if (isJoiningRoom) {
+    <fieldset class="number-code" *ngIf="isJoiningRoom">
+      <input class="code-input" type="text" [(ngModel)]="joiningRoomCode" id="joiningRoomCode" name="joiningRoomCode"
+        maxlength="8" autocomplete="off" autofocus />
+    </fieldset>
+    <button class="game-button green" [disabled]="!joiningRoomCode" (click)="onEnteringRoom()">
+      Enter
+    </button>
+    } @if (isLoading) {
+    <h3 *ngIf="isLoading">Loading...</h3>
+    }
+  </div>
+</div>
+}

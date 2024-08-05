@@ -1,0 +1,101 @@
+@import "../../assets/scss/_mixins";
+
+.main-container {
+    padding: 1rem;
+
+    .game-invite {
+        @include game-buttons;
+        background: linear-gradient(to bottom right, #1d1f20, #003366);
+        height: calc(100vh - 5rem);
+        border-radius: 15px;
+        padding: 1.5rem;
+        text-align: center;
+        color: #fff;
+        text-wrap: wrap;
+
+        h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        p {
+            font-size: 1rem;
+        }
+
+        .number-code {
+            margin: auto;
+            border: none;
+            position: relative;
+
+            @media only screen and (max-width: 768px) {
+                width: 100%;
+            }
+
+            input {
+                background: #00466a;
+                margin: 0 auto;
+                outline: none;
+                border: none;
+                padding: 0 10px;
+                color: #fff;
+                border-radius: 0.25rem;
+                letter-spacing: 1rem;
+                text-align: center;
+                height: 2.5rem;
+                font-size: 1.5rem;
+            }
+
+            .copy-icon {
+                font-size: 1.5rem;
+                cursor: pointer;
+                margin-left: 0.5rem;
+
+                &:hover {
+                    color: #3ebbf7;
+                }
+            }
+        }
+    }
+}
+
+.container {
+    @include game-buttons;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to bottom right, #1d1f20, #003366);
+    color: #fff;
+    height: calc(100vh - 5rem);
+    border-radius: 15px;
+    padding: 1.5rem;
+    text-wrap: wrap;
+
+    #board {
+        display: grid;
+        grid-template-columns: repeat(3, 100px);
+        gap: 5px;
+    }
+
+    .cell {
+        width: 100px;
+        height: 100px;
+        font-size: 2em;
+        text-align: center;
+        line-height: 100px;
+        background-color: #3498db;
+        cursor: pointer;
+        border: 1.5px solid #ecf0f1;
+        border-radius: 8px;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+            background-color: #2980b9;
+        }
+
+        &.disabled {
+            cursor: not-allowed;
+            background-color: #2980b9;
+        }
+    }
+}

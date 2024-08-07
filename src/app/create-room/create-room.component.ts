@@ -7,7 +7,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCopy } from '@fortawesome/free-solid-svg-icons';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { HttpClientModule } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 export interface BoardPosition {
   pos: string;
@@ -56,8 +56,8 @@ export class CreateRoomComponent implements OnInit, OnDestroy {
   public disabledReplayButton: boolean = false;
   faCopy = faCopy;
 
-  constructor(private clipboard: Clipboard, private router: Router) {
-    this.socket = io('http://localhost:3000', {
+  constructor(private clipboard: Clipboard) {
+    this.socket = io(environment.serverURL, {
       transports: ['websocket', 'polling', 'flashsocket'],
       reconnectionDelayMax: 10000,
     });
@@ -101,8 +101,6 @@ export class CreateRoomComponent implements OnInit, OnDestroy {
     });
     this.socket.on('leftGame', () => {
       this.winText = 'Other Player Left the game!!!';
-      // this.disabledReplayButton = true;
-      // this.onNavigateHome();
     });
     this.socket.on('userLeft', () => {
       this.isGameOver = true;

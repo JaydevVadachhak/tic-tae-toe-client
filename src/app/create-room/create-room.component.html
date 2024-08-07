@@ -5,7 +5,7 @@
     <h1>{{winText}}</h1>
     <button class="game-button orange" (click)="onNavigateHome()">Home</button>
     <!-- disabledReplayButton || userId !== currentUser -->
-    <button class="game-button green" (click)="resetGame()">Find Interesting, Play
+    <button class="game-button green" (click)="resetGame()" [disabled]="isGameOver">Find Interesting, Play
       Again!!!</button>
     }
     @if (!isGameOver) {
